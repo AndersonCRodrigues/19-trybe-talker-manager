@@ -1,4 +1,6 @@
 const checkTalker = require('../db/checkTalker');
+const connection = require('../db/conn');
+const contructor = require('../utils/construtor');
 const {
   readTalkers,
   insertTalkerFile,
@@ -91,6 +93,17 @@ module.exports = class TalkerController {
     try {
       await updateRate(rate, id);
       return res.status(204).json();
+    } catch (e) {
+      res.status(500).json({ message: `Error: ${e}` });
+    }
+  }
+
+  static async findAllDB(_req, res) {
+    const query = 'SELECT * FROM talkers';
+    try {
+      const [result] = await connection.execute(query);
+      const data = contructor(result);
+      return res.status(200).json(data);
     } catch (e) {
       res.status(500).json({ message: `Error: ${e}` });
     }

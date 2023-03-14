@@ -16,6 +16,7 @@ const router = Router();
 
 router.get('/', TalkerController.allTalks)
   .get('/search', tokenVerify, checkInteger, checkDateSearch, TalkerController.searchTalker)
+  .get('/db', TalkerController.findAllDB)
   .patch('/rate/:id', tokenVerify, ratePatchVerify, TalkerController.changeRate)
   .get('/:id', TalkerController.talkerId)
   .post('/',
