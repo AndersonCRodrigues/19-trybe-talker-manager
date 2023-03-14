@@ -62,10 +62,18 @@ const deleteTalk = async (id) => {
   }
 };
 
-const search = async (type, query) => {
+const searchFilter = (type, array, query) => {
   try {
-    const arrayTalker = await readTalkers();
-    const arraySearch = arrayTalker.filter((e) => e[type].includes(query));
+    const arraySearch = array.filter((e) => e[type].includes(query));
+    return arraySearch;
+  } catch (e) {
+    return null;
+  }
+};
+
+const searchEqual = (type, array, query) => {
+  try {
+    const arraySearch = array.filter((e) => e.talk[type] === query);
     return arraySearch;
   } catch (e) {
     return null;
@@ -77,5 +85,6 @@ module.exports = {
   insertTalkerFile,
   updateTalker,
   deleteTalk,
-  search,
+  searchFilter,
+  searchEqual,
 };

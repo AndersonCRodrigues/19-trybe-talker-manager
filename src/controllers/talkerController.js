@@ -4,7 +4,8 @@ const {
   insertTalkerFile,
   updateTalker,
   deleteTalk,
-  search,
+  searchFilter,
+  searchEqual,
 } = require('../utils/readAndWriteFiles');
 
 module.exports = class TalkerController {
@@ -71,12 +72,11 @@ module.exports = class TalkerController {
   }
 
   static async searchTalker(req, res) {
-    let query = '';
-    if (req.query.q) {
-      query = req.query.q;
-    }
+    let result = await readTalkers();
+
+    if (req.query.q) result = searchFilter('name', result, req.query.q);
+    if (req.query.rate) result = searchEqual('rate', result, +req.query.rate);
     try {
-      const result = await search('name', query);
       const data = result || [];
       return res.status(200).json(data);
     } catch (e) {

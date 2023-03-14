@@ -64,9 +64,10 @@ const rateVerify = (req, res, next) => {
 };
 
 const checkInteger = (req, res, next) => {
-  const { talk: { rate } } = req.body;
-  if (rate && !checkRate(rate)) {
-    return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  const { rate } = req.query;
+  if (rate && !checkRate(+rate)) {
+    return res.status(400)
+    .json({ message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' });
   }
   next();
 };

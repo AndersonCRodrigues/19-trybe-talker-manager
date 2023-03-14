@@ -7,12 +7,13 @@ const {
   talkVerify,
   watchedAtVerify,
   rateVerify,
+  checkInteger,
 } = require('../middlewares/talkerVerify');
 
 const router = Router();
 
 router.get('/', TalkerController.allTalks)
-  .get('/search', tokenVerify, TalkerController.searchTalker)
+  .get('/search', tokenVerify, checkInteger, TalkerController.searchTalker)
   .get('/:id', TalkerController.talkerId)
   .post('/',
             tokenVerify,
