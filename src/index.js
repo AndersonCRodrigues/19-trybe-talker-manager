@@ -11,6 +11,10 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
+const taklerRouter = require('./routes/talkerRouter');
+
+app.use('/talker', taklerRouter);
+
 app.listen(PORT, () => {
   console.log('Online');
 });
