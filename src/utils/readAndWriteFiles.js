@@ -51,6 +51,21 @@ const updateTalker = async (params, id) => {
   }
 };
 
+const updateRate = async (rate, id) => {
+  try {
+    const arrayTalker = await readTalkers();
+
+    const talker = arrayTalker.find((e) => e.id === +id);
+
+    talker.talk.rate = rate;
+
+    await writeFile(arrayTalker);
+    return null;
+  } catch (error) {
+   return null;
+  }
+};
+
 const deleteTalk = async (id) => {
   try {
     const arrayTalker = await readTalkers();
@@ -91,4 +106,5 @@ module.exports = {
   deleteTalk,
   searchFilter,
   searchEqual,
+  updateRate,
 };

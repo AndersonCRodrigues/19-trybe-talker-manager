@@ -9,12 +9,14 @@ const {
   rateVerify,
   checkInteger,
   checkDateSearch,
+  ratePatchVerify,
 } = require('../middlewares/talkerVerify');
 
 const router = Router();
 
 router.get('/', TalkerController.allTalks)
   .get('/search', tokenVerify, checkInteger, checkDateSearch, TalkerController.searchTalker)
+  .patch('/rate/:id', tokenVerify, ratePatchVerify, TalkerController.changeRate)
   .get('/:id', TalkerController.talkerId)
   .post('/',
             tokenVerify,

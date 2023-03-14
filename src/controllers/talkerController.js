@@ -6,6 +6,7 @@ const {
   deleteTalk,
   searchFilter,
   searchEqual,
+  updateRate,
 } = require('../utils/readAndWriteFiles');
 
 module.exports = class TalkerController {
@@ -79,6 +80,17 @@ module.exports = class TalkerController {
     try {
       const data = result || [];
       return res.status(200).json(data);
+    } catch (e) {
+      res.status(500).json({ message: `Error: ${e}` });
+    }
+  }
+
+  static async changeRate(req, res) {
+    const { id } = req.params;
+    const { rate } = req.body;
+    try {
+      await updateRate(rate, id);
+      return res.status(204).json();
     } catch (e) {
       res.status(500).json({ message: `Error: ${e}` });
     }
