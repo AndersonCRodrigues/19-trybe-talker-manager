@@ -91,11 +91,9 @@ const searchEqual = (array, query) => {
   if (query.rate) {
     arraySearch = arraySearch.filter((e) => e.talk.rate === +query.rate);
   }
-  console.log(arraySearch);
   if (query.date) {
     arraySearch = arraySearch.filter((e) => e.talk.watchedAt === query.date);
   }
-  console.log(arraySearch);
   return arraySearch;
 };
 
