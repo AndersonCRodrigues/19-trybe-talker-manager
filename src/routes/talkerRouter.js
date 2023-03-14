@@ -12,6 +12,7 @@ const {
 const router = Router();
 
 router.get('/', TalkerController.allTalks)
+  .get('/search', tokenVerify, TalkerController.searchTalker)
   .get('/:id', TalkerController.talkerId)
   .post('/',
             tokenVerify,

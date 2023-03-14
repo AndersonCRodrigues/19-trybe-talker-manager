@@ -4,6 +4,7 @@ const {
   insertTalkerFile,
   updateTalker,
   deleteTalk,
+  search,
 } = require('../utils/readAndWriteFiles');
 
 module.exports = class TalkerController {
@@ -64,6 +65,20 @@ module.exports = class TalkerController {
       await deleteTalk(id);
       console.log('chegeui aqui');
       return res.status(204).json();
+    } catch (e) {
+      res.status(500).json({ message: `Error: ${e}` });
+    }
+  }
+
+  static async searchTalker(req, res) {
+    let query = '';
+    if (req.query.q) {
+      query = req.query.q;
+    }
+    try {
+      const result = await search('name', query);
+      const data = result || [];
+      return res.status(200).json(data);
     } catch (e) {
       res.status(500).json({ message: `Error: ${e}` });
     }
