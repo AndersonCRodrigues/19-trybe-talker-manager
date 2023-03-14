@@ -28,6 +28,7 @@ router.get('/', TalkerController.allTalks)
             talkVerify,
             watchedAtVerify,
             rateVerify,
-            TalkerController.putTalker);
-            
+            TalkerController.putTalker)
+  .delete('/:id', tokenVerify, TalkerController.deleteTalker);
+
 module.exports = router;

@@ -3,6 +3,7 @@ const {
   readTalkers,
   insertTalkerFile,
   updateTalker,
+  deleteTalk,
 } = require('../utils/readAndWriteFiles');
 
 module.exports = class TalkerController {
@@ -52,6 +53,17 @@ module.exports = class TalkerController {
         return res.status(200).json(talker);
       }
       return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+    } catch (e) {
+      res.status(500).json({ message: `Error: ${e}` });
+    }
+  }
+
+  static async deleteTalker(req, res) {
+    const { id } = req.params;
+    try {
+      await deleteTalk(id);
+      console.log('chegeui aqui');
+      return res.status(204).json();
     } catch (e) {
       res.status(500).json({ message: `Error: ${e}` });
     }
