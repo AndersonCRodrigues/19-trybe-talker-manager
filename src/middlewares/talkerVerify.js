@@ -72,4 +72,19 @@ const checkInteger = (req, res, next) => {
   next();
 };
 
-module.exports = { nameVerify, ageVerify, talkVerify, watchedAtVerify, rateVerify, checkInteger };
+const checkDateSearch = (req, res, next) => {
+  const { date } = req.query;
+  if (date && !checkDate(date)) {
+    return res.status(400).json({ message: 'O parâmetro "date" deve ter o formato "dd/mm/aaaa"' });
+  }
+  next();
+};
+
+module.exports = {
+  nameVerify,
+  ageVerify,
+  talkVerify,
+  watchedAtVerify,
+  rateVerify,
+  checkInteger,
+  checkDateSearch };

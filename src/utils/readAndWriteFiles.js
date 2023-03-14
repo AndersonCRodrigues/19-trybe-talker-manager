@@ -71,13 +71,17 @@ const searchFilter = (type, array, query) => {
   }
 };
 
-const searchEqual = (type, array, query) => {
-  try {
-    const arraySearch = array.filter((e) => e.talk[type] === query);
-    return arraySearch;
-  } catch (e) {
-    return null;
+const searchEqual = (array, query) => {
+  let arraySearch = array;
+  if (query.rate) {
+    arraySearch = arraySearch.filter((e) => e.talk.rate === +query.rate);
   }
+  console.log(arraySearch);
+  if (query.date) {
+    arraySearch = arraySearch.filter((e) => e.talk.watchedAt === query.date);
+  }
+  console.log(arraySearch);
+  return arraySearch;
 };
 
 module.exports = {

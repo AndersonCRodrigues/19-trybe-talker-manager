@@ -75,7 +75,7 @@ module.exports = class TalkerController {
     let result = await readTalkers();
 
     if (req.query.q) result = searchFilter('name', result, req.query.q);
-    if (req.query.rate) result = searchEqual('rate', result, +req.query.rate);
+    if (req.query) result = searchEqual(result, req.query);
     try {
       const data = result || [];
       return res.status(200).json(data);
