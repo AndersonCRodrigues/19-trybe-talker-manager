@@ -1,4 +1,9 @@
-const { readTalkers, insertTalkerFile } = require('../utils/readAndWriteFiles');
+const checkTalker = require('../db/checkTalker');
+const {
+  readTalkers,
+  insertTalkerFile,
+  updateTalker,
+} = require('../utils/readAndWriteFiles');
 
 module.exports = class TalkerController {
   static async allTalks(req, res) {
@@ -32,6 +37,21 @@ module.exports = class TalkerController {
     try {
       const talker = await insertTalkerFile({ name, age, talk });
       res.status(201).json(talker);
+    } catch (e) {
+      res.status(500).json({ message: `Error: ${e}` });
+    }
+  }
+
+  static async putTalker(req, res) {
+    const { id } = req.params;
+    const { name, age, talk } = req.body;
+    try {
+      const verify = await checkTalker(id);
+      if (verify) {
+        const talker = await updateTalker({ name, age, talk }, id);
+        return res.status(200).json(talker);
+      }
+      return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
     } catch (e) {
       res.status(500).json({ message: `Error: ${e}` });
     }

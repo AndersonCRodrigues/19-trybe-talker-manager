@@ -20,5 +20,14 @@ router.get('/', TalkerController.allTalks)
             talkVerify,
             watchedAtVerify,
             rateVerify,
-            TalkerController.addTalker);
+            TalkerController.addTalker)
+  .put('/:id',
+            tokenVerify,
+            nameVerify,
+            ageVerify,
+            talkVerify,
+            watchedAtVerify,
+            rateVerify,
+            TalkerController.putTalker);
+            
 module.exports = router;
